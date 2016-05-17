@@ -65,6 +65,7 @@ enum MDLabel
     MDL_ANGLE_DIFF2, ///< difference between two angles (double,degrees)
     MDL_ANGLE_Y,   ///< Angle between y-axis and tilt-axis (double, degrees) for untilted micrographs
     MDL_ANGLE_Y2,   ///< Angle between y-axis and tilt-axis (double, degrees) for tilted micrographs
+    MDL_ANGLE_TEMPERATURE, ///< Angular temperature (double,degrees)
     MDL_APPLY_SHIFT,///<Apply shift when project the volume ,
     MDL_AVG, ///< average value (double)
     MDL_AVG_CHANGES_ORIENTATIONS, /// Average change in angular orientation (double degrees)
@@ -464,6 +465,7 @@ enum MDLabel
     RLN_IMAGE_FRAME_NR,
     RLN_IMAGE_MAGNIFICATION_CORRECTION,
     RLN_IMAGE_NORM_CORRECTION,
+    RLN_IMAGE_ORI_NAME,
     RLN_IMAGE_SAMPLINGRATE,
     RLN_IMAGE_SAMPLINGRATE_X,
     RLN_IMAGE_SAMPLINGRATE_Y,
@@ -1304,6 +1306,7 @@ private:
         MDL::addLabel(MDL_ANGLE_DIFF2, LABEL_DOUBLE, "angleDiff2");
         MDL::addLabel(MDL_ANGLE_Y, LABEL_DOUBLE, "angleY");
         MDL::addLabel(MDL_ANGLE_Y2, LABEL_DOUBLE, "angleY2");
+        MDL::addLabel(MDL_ANGLE_TEMPERATURE, LABEL_DOUBLE, "angleTemp");
 
         MDL::addLabel(MDL_APPLY_SHIFT, LABEL_BOOL, "applyShift");
         MDL::addLabel(MDL_AVG, LABEL_DOUBLE, "avg");
@@ -1835,8 +1838,9 @@ private:
         MDL::addLabel(RLN_IMAGE_COORD_Y, LABEL_DOUBLE, "rlnCoordinateY");
         MDL::addLabel(RLN_IMAGE_COORD_Z, LABEL_DOUBLE, "rlnCoordinateZ");
         MDL::addLabel(RLN_IMAGE_FRAME_NR, LABEL_INT, "rlnMovieFrameNumber");
-        MDL::addLabel(RLN_IMAGE_NORM_CORRECTION, LABEL_DOUBLE, "rlnNormCorrection");
         MDL::addLabel(RLN_IMAGE_MAGNIFICATION_CORRECTION, LABEL_DOUBLE, "rlnMagnificationCorrection");
+        MDL::addLabel(RLN_IMAGE_NORM_CORRECTION, LABEL_DOUBLE, "rlnNormCorrection");
+        MDL::addLabel(RLN_IMAGE_ORI_NAME, LABEL_STRING, "rlnImageOriginalName", TAGLABEL_IMAGE);
         MDL::addLabel(RLN_IMAGE_SAMPLINGRATE, LABEL_DOUBLE, "rlnSamplingRate");
         MDL::addLabel(RLN_IMAGE_SAMPLINGRATE_X, LABEL_DOUBLE, "rlnSamplingRateX");
         MDL::addLabel(RLN_IMAGE_SAMPLINGRATE_Y, LABEL_DOUBLE, "rlnSamplingRateY");
