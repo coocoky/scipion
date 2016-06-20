@@ -111,7 +111,12 @@ class XmippProtMultipleFSCs(em.ProtAnalysis3D):
         sampling = self.referenceVolume.get().getSamplingRate()
         fnRoot = self._getExtraPath("volume_%02d" % i)
         fnVol = fnRoot + ".vol"
-        self.runJob("xmipp_image_convert","-i %s -o %s -t vol"%(volLoc,fnVol))
+        fnInputVol = volLoc[1]
+        if fnInputVol.endswith(".mrc"):
+            fnInputVol+=":mrc"
+        if volLoc[0]!=0:
+            fnInputVol="%d@"%volLoc[0]+fnInputVol
+        self.runJob("xmipp_image_convert","-i %s -o %s -t vol"%(fnInputVol,fnVol))
         
         # Resize if the volume has different size than the reference
         self._resizeVolume(fnVol)
