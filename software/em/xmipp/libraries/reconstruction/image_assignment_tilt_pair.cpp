@@ -179,6 +179,50 @@ void ProgassignmentTiltPair::search_affine_transform(float u1x, float u1y, float
 	}
 }
 
+void ProgassignmentTiltPair::findMaximumMinimum(const float u1, const float u2, const float u3, double &u_max, double &u_min)
+{
+if (u1 > u2)
+{
+	if (u1 > u3)
+		u_max = u1;
+	else
+		u_max = u3;
+
+	if (u2 > u3)
+		u_min = u3;
+	else
+		u_min = u2;
+}
+else
+{
+	if (u2 > u3)
+		u_max = u2;
+	else
+		u_max = u3;
+
+	if (u1 > u3)
+		u_min = u3;
+	else
+		u_min = u1;
+}
+}
+
+bool ProgassignmentTiltPair::checkwindow(const float t1, const float t2, const float t3,
+		const double u_max, const double u_min)
+{
+	double window_p, window_m;
+	window_p = u_max + 1.2*mshift;
+	window_m = u_min - 1.2*mshift;
+
+
+	if (((t1<window_p) && (t2<window_p) && (t3<window_p)) && ((t1>window_m) && (t2>window_m) && (t3>window_m)))
+		return true;
+	else
+		return false;
+
+}
+
+
 void ProgassignmentTiltPair::run()
 {
 	std::cout << "Starting..." << std::endl;
@@ -338,6 +382,19 @@ void ProgassignmentTiltPair::run()
 
 			get_Face_Points(&delaunay_untilt, k, &u1, &u2, &u3);
 			get_Face_Points(&delaunay_tilt, j, &t1, &t2, &t3);
+
+
+			//New Idea
+			double ux_max, uy_max, ux_min, uy_min;
+			findMaximumMinimum(u1.x, u2.x, u3.x, ux_max, ux_min);
+			findMaximumMinimum(u1.y, u2.y, u3.y, uy_max, uy_min);
+
+			if (!checkwindow(t1.x, t2.x, t3.x, ux_max, ux_min))
+				continue;
+			if (!checkwindow(t1.y, t2.y, t3.y, uy_max, uy_min))
+				continue;
+
+			//End New Idea
 
 			search_affine_transform(u1.x, u1.y, u2.x, u2.y, u3.x, u3.y, t1.x,
 					t1.y, t2.x, t2.y, t3.x, t3.y,
