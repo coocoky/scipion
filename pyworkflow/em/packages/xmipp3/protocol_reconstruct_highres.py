@@ -615,7 +615,7 @@ class XmippProtReconstructHighRes(ProtRefine3D, HelicalFinder):
                     if R<=0:
                         R=self.inputParticles.get().getDimensions()[0]/2*self.TsOrig
                     self.runJob('xmipp_transform_mask','-i %s --mask cylinder -%d -%d'%\
-                                (fnReferenceVol,round(R/TsCurrent)),newXdim,numberOfMpi=1)
+                                (fnReferenceVol,round(R/TsCurrent),newXdim),numberOfMpi=1)
                 else:
                     R=self.particleRadius.get()
                     if R<=0:
