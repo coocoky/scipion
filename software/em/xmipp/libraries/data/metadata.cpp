@@ -272,7 +272,7 @@ bool MetaData::initGetRow( bool addWhereClause) const
     return(success);
 }
 
-bool MetaData::execGetRow(MDRow &row)
+bool MetaData::execGetRow(MDRow &row) const
 {
 	bool success=true;
 	std::vector<MDObject> mdValues;		// Vector to store values.
@@ -306,15 +306,25 @@ void 	MetaData::finalizeGetRow(void)
 
 bool MetaData::getRow(MDRow &row, size_t id) const
 {
+	bool success=true;
+
+	// Clear row.
     row.clear();
-    for (std::vector<MDLabel>::const_iterator it = activeLabels.begin(); it != activeLabels.end(); ++it)
-    {
-        MDObject obj(*it);
-        if (!getValue(obj, id))
-            return false;
-        row.setValue(obj);
-    }
-    return true;
+
+    // Initialize SELECT.
+	success = this->initGetRow( true);
+	if (success)
+	{
+		bindValue( id);
+
+		// Execute SELECT.
+		success = execGetRow( row);
+
+	    // Finalize SELECT.
+	    myMDSql->finalizePreparedStmt();
+	}
+
+	return(success);
 }
 
 bool MetaData::getRow2(MDRow &row, size_t id)

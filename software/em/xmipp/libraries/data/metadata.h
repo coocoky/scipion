@@ -644,7 +644,7 @@ public:
     bool	bindValue( size_t id) const;
 
     bool 	initGetRow(bool addWhereClause) const;
-    bool 	execGetRow(MDRow &row);
+    bool 	execGetRow(MDRow &row) const;
     void 	finalizeGetRow(void);
     bool 	getRow(MDRow &row, size_t id) const;
     bool 	getRow2(MDRow &row, size_t id);
