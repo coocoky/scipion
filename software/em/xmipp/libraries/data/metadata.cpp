@@ -519,12 +519,22 @@ bool MetaData::execAddRow(const MDRow &row)
     return(success);
 }
 
-size_t MetaData::addRow(const MDRow &row)
+bool MetaData::addRow(const MDRow &row)
 {
-    size_t id = addObject();
-    SET_ROW_VALUES(row);
+	bool	success=true;				// Return value.
 
-    return id;
+	// Initialize INSERT.
+	success = initAddRow( row);
+	if (success)
+	{
+		// Execute INSERT.
+		success = execAddRow( row);
+
+		// Finalize INSERT.
+		myMDSql->finalizePreparedStmt();
+	}
+
+	return(success);
 }
 
 

@@ -658,7 +658,7 @@ public:
     /** Add a new Row and set values, return the objId of newly added object */
     bool 	initAddRow(const MDRow &row);
     bool 	execAddRow(const MDRow &row);
-    size_t 	addRow(const MDRow &row);
+    bool 	addRow(const MDRow &row);
     bool  	addRow2(const MDRow &row);
 
     /** Set label values from string representation.

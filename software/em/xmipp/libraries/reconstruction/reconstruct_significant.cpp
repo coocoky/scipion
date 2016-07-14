@@ -264,15 +264,24 @@ void ProgReconstructSignificant::alignImagesToGallery()
 
 			if (maxShift<0 || (maxShift>0 && fabs(shiftX)<maxShift && fabs(shiftY)<maxShift))
 			{
-				size_t recId=mdProjectionMatching.addRow(row);
-				mdProjectionMatching.setValue(MDL_ENABLED,1,recId);
-				mdProjectionMatching.setValue(MDL_MAXCC,bestCorr,recId);
-				mdProjectionMatching.setValue(MDL_ANGLE_ROT,bestRot,recId);
-				mdProjectionMatching.setValue(MDL_ANGLE_TILT,bestTilt,recId);
-				mdProjectionMatching.setValue(MDL_ANGLE_PSI,anglePsi,recId);
-				mdProjectionMatching.setValue(MDL_SHIFT_X,-shiftX,recId);
-				mdProjectionMatching.setValue(MDL_SHIFT_Y,-shiftY,recId);
-				mdProjectionMatching.setValue(MDL_FLIP,flip,recId);
+//				size_t recId=mdProjectionMatching.addRow(row);
+//				mdProjectionMatching.setValue(MDL_ENABLED,1,recId);
+//				mdProjectionMatching.setValue(MDL_MAXCC,bestCorr,recId);
+//				mdProjectionMatching.setValue(MDL_ANGLE_ROT,bestRot,recId);
+//				mdProjectionMatching.setValue(MDL_ANGLE_TILT,bestTilt,recId);
+//				mdProjectionMatching.setValue(MDL_ANGLE_PSI,anglePsi,recId);
+//				mdProjectionMatching.setValue(MDL_SHIFT_X,-shiftX,recId);
+//				mdProjectionMatching.setValue(MDL_SHIFT_Y,-shiftY,recId);
+//				mdProjectionMatching.setValue(MDL_FLIP,flip,recId);
+				row.setValue(MDObject(MDL_ENABLED,1));
+				row.setValue(MDObject(MDL_MAXCC,bestCorr));
+				row.setValue(MDObject(MDL_ANGLE_ROT,bestRot));
+				row.setValue(MDObject(MDL_ANGLE_TILT,bestTilt));
+				row.setValue(MDObject(MDL_ANGLE_PSI,anglePsi));
+				row.setValue(MDObject(MDL_SHIFT_X,-shiftX));
+				row.setValue(MDObject(MDL_SHIFT_Y,-shiftY));
+				row.setValue(MDObject(MDL_FLIP,flip));
+				mdProjectionMatching.addRow(row);
 			}
 
 			// Compute lower limit of correlation
@@ -338,21 +347,36 @@ void ProgReconstructSignificant::alignImagesToGallery()
 						          << "shiftX=" << shiftX << " shiftY=" << shiftY << std::endl;
 			#endif
 
-						size_t recId=mdPartial.addRow(row);
-						mdPartial.setValue(MDL_ENABLED,1,recId);
-						mdPartial.setValue(MDL_MAXCC,cc,recId);
-						mdPartial.setValue(MDL_COST,imed,recId);
-						mdPartial.setValue(MDL_ANGLE_ROT,angleRot,recId);
-						mdPartial.setValue(MDL_ANGLE_TILT,angleTilt,recId);
-						mdPartial.setValue(MDL_ANGLE_PSI,anglePsi,recId);
-						mdPartial.setValue(MDL_SHIFT_X,-shiftX,recId);
-						mdPartial.setValue(MDL_SHIFT_Y,-shiftY,recId);
-						mdPartial.setValue(MDL_FLIP,flip,recId);
-						mdPartial.setValue(MDL_IMAGE_IDX,(size_t)nImg,recId);
-						mdPartial.setValue(MDL_REF,(int)nDir,recId);
-						mdPartial.setValue(MDL_REF3D,(int)nVolume,recId);
-						mdPartial.setValue(MDL_WEIGHT,thisWeight,recId);
-						mdPartial.setValue(MDL_WEIGHT_SIGNIFICANT,thisWeight,recId);
+//						size_t recId=mdPartial.addRow(row);
+//						mdPartial.setValue(MDL_ENABLED,1,recId);
+//						mdPartial.setValue(MDL_MAXCC,cc,recId);
+//						mdPartial.setValue(MDL_COST,imed,recId);
+//						mdPartial.setValue(MDL_ANGLE_ROT,angleRot,recId);
+//						mdPartial.setValue(MDL_ANGLE_TILT,angleTilt,recId);
+//						mdPartial.setValue(MDL_ANGLE_PSI,anglePsi,recId);
+//						mdPartial.setValue(MDL_SHIFT_X,-shiftX,recId);
+//						mdPartial.setValue(MDL_SHIFT_Y,-shiftY,recId);
+//						mdPartial.setValue(MDL_FLIP,flip,recId);
+//						mdPartial.setValue(MDL_IMAGE_IDX,(size_t)nImg,recId);
+//						mdPartial.setValue(MDL_REF,(int)nDir,recId);
+//						mdPartial.setValue(MDL_REF3D,(int)nVolume,recId);
+//						mdPartial.setValue(MDL_WEIGHT,thisWeight,recId);
+//						mdPartial.setValue(MDL_WEIGHT_SIGNIFICANT,thisWeight,recId);
+						row.setValue(MDObject(MDL_ENABLED,1));
+						row.setValue(MDObject(MDL_MAXCC,cc));
+						row.setValue(MDObject(MDL_COST,imed));
+						row.setValue(MDObject(MDL_ANGLE_ROT,angleRot));
+						row.setValue(MDObject(MDL_ANGLE_TILT,angleTilt));
+						row.setValue(MDObject(MDL_ANGLE_PSI,anglePsi));
+						row.setValue(MDObject(MDL_SHIFT_X,-shiftX));
+						row.setValue(MDObject(MDL_SHIFT_Y,-shiftY));
+						row.setValue(MDObject(MDL_FLIP,flip));
+						row.setValue(MDObject(MDL_IMAGE_IDX,(size_t)nImg));
+						row.setValue(MDObject(MDL_REF,(int)nDir));
+						row.setValue(MDObject(MDL_REF3D,(int)nVolume));
+						row.setValue(MDObject(MDL_WEIGHT,thisWeight));
+						row.setValue(MDObject(MDL_WEIGHT_SIGNIFICANT,thisWeight));
+						mdProjectionMatching.addRow(row);
 					}
 				}
 			}

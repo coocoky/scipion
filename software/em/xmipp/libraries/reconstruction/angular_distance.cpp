@@ -235,10 +235,11 @@ void ProgAngularDistance::run()
             row.setValue(MDL_SHIFT_Y_DIFF, Y_diff(i));
             //output[16]=shift_diff(i);
             row.setValue(MDL_SHIFT_DIFF,shift_diff(i));
-
-            id = DF_out.addRow(row);
-            //id = DF_out.addObject();
-            DF_out.setValue(MDL_IMAGE,fnImg,id);
+//            id = DF_out.addRow(row);
+//            //id = DF_out.addObject();
+//            DF_out.setValue(MDL_IMAGE,fnImg,id);
+            row.setValue( MDObject(MDL_IMAGE, fnImg));
+            DF_out.addRow(row);
             //DF_out.setValue(MDL_ANGLE_COMPARISON,output, id);
         }
 

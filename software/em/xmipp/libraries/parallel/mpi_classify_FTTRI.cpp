@@ -1109,9 +1109,12 @@ void ProgClassifyFTTRI::writeResults(bool FTTRI)
             int trueIdx=A1D_ELEM(idx,n)-1;
             size_t trueId=imgsId[class_i[trueIdx]];
             mdIn.getRow(row,trueId);
-            size_t idClass=MDclass.addRow(row);
-            MDclass.setValue(MDL_COST,A1D_ELEM(distance,trueIdx),idClass);
-            MDclass.setValue(MDL_REF,i+1,idClass);
+//            size_t idClass=MDclass.addRow(row);
+//            MDclass.setValue(MDL_COST,A1D_ELEM(distance,trueIdx),idClass);
+//            MDclass.setValue(MDL_REF,i+1,idClass);
+            row.setValue( MDObject(MDL_COST, A1D_ELEM(distance,trueIdx)));
+            row.setValue( MDObject(MDL_COST, i+1));
+            MDclass.addRow(row);
             mdIn.setValue(MDL_REF,i+1,trueId);
         }
         MDclass.write(formatString("class%06d_images@%s",i+1,fnClasses.c_str()),MD_APPEND);
