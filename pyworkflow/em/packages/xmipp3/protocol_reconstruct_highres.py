@@ -914,8 +914,6 @@ class XmippProtReconstructHighRes(ProtRefine3D, HelicalFinder):
                     args+=" --optimizeScale --max_scale %f"%self.contMaxScale.get() 
                 if self.contAngles:
                     args+=" --optimizeAngles --max_angular_change %f"%maxAngle
-                if self.contGrayValues:
-                    args+=" --optimizeGray --max_gray_scale %f --max_gray_shift %f"%(self.contMaxGrayScale.get(),self.contMaxGrayShift.get())
                 if self.contDefocus:
                     args+=" --optimizeDefocus --max_defocus_change %f"%self.contMaxDefocus.get()
                 if self.inputParticles.get().isPhaseFlipped():
@@ -1134,6 +1132,9 @@ class XmippProtReconstructHighRes(ProtRefine3D, HelicalFinder):
                     self.runJob("xmipp_ctf_correct_wiener2d",args,numberOfMpi=self.numberOfMpi.get()*self.numberOfThreads.get())
                     fnAnglesToUse = fnCorrectedImagesRoot+".xmd"
                     deleteStack = True
+                if self.contGrayValues:
+                    args="-i %s --optimizeGray --max_gray_scale %f --max_gray_shift %f"%(fnAnglesToUse,self.contMaxGrayScale.get(),self.contMaxGrayShift.get())
+                    self.runJob("xmipp_angular_continuous2",args)
                 
                 # Reconstruct Fourier
                 args="-i %s -o %s --sym %s --weight --thr %d"%(fnAnglesToUse,fnVol,self.symmetryGroup,self.numberOfThreads.get())
