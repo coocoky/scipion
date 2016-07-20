@@ -1134,7 +1134,7 @@ class XmippProtReconstructHighRes(ProtRefine3D, HelicalFinder):
                     deleteStack = True
                 if self.contGrayValues:
                     args="-i %s --optimizeGray --max_gray_scale %f --max_gray_shift %f"%(fnAnglesToUse,self.contMaxGrayScale.get(),self.contMaxGrayShift.get())
-                    self.runJob("xmipp_angular_continuous2",args)
+                    self.runJob("xmipp_angular_continuous_assign2",args)
                 
                 # Reconstruct Fourier
                 args="-i %s -o %s --sym %s --weight --thr %d"%(fnAnglesToUse,fnVol,self.symmetryGroup,self.numberOfThreads.get())
