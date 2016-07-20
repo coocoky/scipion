@@ -1131,9 +1131,10 @@ class XmippProtReconstructHighRes(ProtRefine3D, HelicalFinder):
                         args+=" --phase_flipped"
                     self.runJob("xmipp_ctf_correct_wiener2d",args,numberOfMpi=self.numberOfMpi.get()*self.numberOfThreads.get())
                     fnAnglesToUse = fnCorrectedImagesRoot+".xmd"
-                    deleteStack = True
                 if self.contGrayValues:
-                    args="-i %s --optimizeGray --max_gray_scale %f --max_gray_shift %f"%(fnAnglesToUse,self.contMaxGrayScale.get(),self.contMaxGrayShift.get())
+                    fnRefVol =join(fnDirCurrent,"localAssignment","volumeRef%02d.vol"%i)
+                    args="-i %s --ref %s --optimizeGray --max_gray_scale %f --max_gray_shift %f"%\
+                         (fnAnglesToUse,fnRefVol,self.contMaxGrayScale.get(),self.contMaxGrayShift.get())
                     self.runJob("xmipp_angular_continuous_assign2",args)
                 
                 # Reconstruct Fourier
